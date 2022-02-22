@@ -148,8 +148,6 @@ def image_to_GLRLM_props_tensor(X_pan_filename, X_mult_filename, window_size): #
         a_pixels_in_pan = coord2pix(a_coords, geo_trans_pan, proj_pan)
         pixels_pan_list.append(a_pixels_in_pan)
     #теперь в pixels_list лежат листы с пикселями каждой строки
-   # i_array = np.arange(Istart, Iend, 4)
-   # j_array = np.arange(Jstart, Jend, 4)
     props_tensor = np.zeros((m_m, m_n, 11))
     cnt_i = 0
     cnt_j = 0
@@ -169,12 +167,9 @@ def image_to_GLRLM_props_tensor(X_pan_filename, X_mult_filename, window_size): #
         cnt_j = 0
         for elem in line:
             i, j = elem
-            #print(i, j)
             i_ = int(i + half_size - 1) 
             j_ = int(j + half_size - 1)
             temp = copy.deepcopy(img[i_ - half_size : i_ + half_size, j_ - half_size:j_ + half_size])
-           # print(temp)
-           # print(temp.shape)
             GLRLM_temp = GLRLM(temp)
             props = GLRLM_props(GLRLM_temp)
             props_tensor[cnt_i, cnt_j, :] = props
